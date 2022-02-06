@@ -97,9 +97,9 @@ class SportsWalking(Training):
         coff_calorie_2: float = 0.029
         swl_spent_calories: float = ((coff_calorie_1 * self.weight
                                      + (self.get_mean_speed()**2
-                                     // self.height)
-                                     * coff_calorie_2 * self.weight)
-                                     * self.duration * self.HOUR_MIN
+                                     // self.height) * coff_calorie_2
+                                     * self.weight) * self.duration
+                                     * self.HOUR_MIN
                                      )
         return swl_spent_calories
 
