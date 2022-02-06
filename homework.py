@@ -83,10 +83,10 @@ class Running(Training):
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
 
-    def __init__(self, 
-                 action, 
-                 duration, 
-                 weight, 
+    def __init__(self,
+                 action,
+                 duration,
+                 weight,
                  height: float
                  ) -> None:
         super().__init__(action, duration, weight)
@@ -96,7 +96,8 @@ class SportsWalking(Training):
         coff_calorie_1: float = 0.035
         coff_calorie_2: float = 0.029
         swl_spent_calories: float = ((coff_calorie_1 * self.weight
-                                     + (self.get_mean_speed()**2 // self.height)
+                                     + (self.get_mean_speed()**2
+                                     // self.height)
                                      * coff_calorie_2 * self.weight)
                                      * self.duration * self.HOUR_MIN
                                      )
@@ -108,11 +109,11 @@ class Swimming(Training):
 
     LEN_STEP = 1.38
 
-    def __init__(self, 
-                 action, 
-                 duration, 
-                 weight, 
-                 length_pool: int, 
+    def __init__(self,
+                 action,
+                 duration,
+                 weight,
+                 length_pool: int,
                  count_pool: int
                  ) -> None:
         super().__init__(action, duration, weight)
