@@ -42,7 +42,7 @@ class Training:
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
-        
+     
         return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
@@ -72,7 +72,7 @@ class Running(Training):
     COEFF_RUN_CAL_2 = 20
 
     def get_spent_calories(self) -> float:
-        
+
         return ((self.COEFF_RUN_CAL_1 * self.get_mean_speed()
                 - self.COEFF_RUN_CAL_2) * self.weight
                 / self.M_IN_KM * self.duration * self.HOUR_MIN
@@ -95,13 +95,12 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        sp_heig: float = (self.get_mean_speed()**2 // self.height)
-        swl_spent_calories: float = ((self.COEFF_WLK_CAL_1 * self.weight
-                                     + sp_heig * self.COEFF_WLK_CAL_2 * self.weight)
-                                     * self.duration * self.HOUR_MIN
-                                     )
-        return swl_spent_calories
-
+ 
+        return ((self.COEFF_WLK_CAL_1 * self.weight
+                + (self.get_mean_speed()**2 // self.height)
+                * self.COEFF_WLK_CAL_2 * self.weight) * self.duration
+                * self.HOUR_MIN
+                )
 
 class Swimming(Training):
     """Тренировка: плавание."""
@@ -122,18 +121,20 @@ class Swimming(Training):
         self.count_pool = count_pool
 
     def get_mean_speed(self) -> float:
-        
+
         return (self.length_pool * self.count_pool
                 / self.M_IN_KM / self.duration
                 )
 
     def get_spent_calories(self) -> float:
-        
+
         return ((self.get_mean_speed() + self.COEFF_SWM_CAL_1)
                 * self.COEFF_SWM_CAL_2 * self.weight
                 )
 
+
 TRANINGS = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
+
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
@@ -152,8 +153,8 @@ def main(training: Training) -> None:
 
 if __name__ == '__main__':
     packages = [
-        ('SWMn', [720, 1, 80, 25, 40]),
-        ('RUNg', [15000, 1, 75]),
+        ('SWM', [720, 1, 80, 25, 40]),
+        ('RUN', [15000, 1, 75]),
         ('WLK', [9000, 1, 75, 180]),
     ]
 
