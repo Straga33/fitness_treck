@@ -56,11 +56,11 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        training_info = InfoMessage(self.__class__.__name__,
-                                    self.duration,
-                                    self.get_distance(),
-                                    self.get_mean_speed(),
-                                    self.get_spent_calories()
+        training_info = InfoMessage(training_type = self.__class__.__name__,
+                                    duration = self.duration,
+                                    distance = self.get_distance(),
+                                    speed = self.get_mean_speed(),
+                                    calories = self.get_spent_calories()
                                     )
         return training_info
 
@@ -141,7 +141,8 @@ def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
 
     if workout_type not in TRANINGS:
-        raise NotImplementedError()
+        raise NotImplementedError(f"тренировка {workout_type} еще"
+                                  f"не поддерживается")
     return TRANINGS[workout_type](*data)
 
 
@@ -163,5 +164,5 @@ if __name__ == '__main__':
         try:
             training = read_package(workout_type, data)
             main(training)
-        except NotImplementedError:
-            print('NotImplementedError: Тип тренировки не определен')
+        except NotImplementedError as error_workout_type:
+            print(type(error_workout_type).__name__ + ':', error_workout_type)
